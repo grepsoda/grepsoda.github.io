@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trivia Game with Google Custom Search Engine">
+    <title>Trivia Search Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Trivia Search Game</h1>
+        <p>Test your knowledge and use the search bar to find the answers!</p>
+    </header>
+    <main>
+        <div id="search-bar">
+            <script async src="https://cse.google.com/cse.js?cx=f469a776771ed489e">
+            </script>
+<div class="gcse-search"></div>
+        </div>
+        <div id="trivia-game">
+            <h2>Trivia Questions</h2>
+            <p id="question"></p>
+            <button id="next-question">Next Question</button>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Trivia Search Game</p>
+    </footer>
+</body>
+</html>
