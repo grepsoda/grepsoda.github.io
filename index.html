@@ -145,6 +145,13 @@
   </button>
 
   <script>
+   <script type="text/javascript">
+    var uid = '492517';
+    var wid = '743060';
+    var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
+    pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
+
+	
     const items = [
      { name: 'TOOTHPASTE', upc: '004100904889', price: 5.58, category: 'H' },
      { name: 'CANDY HZLNT', upc: '044330004889', price: 4.58, category: 'F' },
@@ -302,12 +309,5 @@
         document.getElementById('receipt').style.fontFamily = this.value;
       });
     });
-  </script>
-  <script type="text/javascript">
-   var uid = '492517';
-   var wid = '743060';
-   var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
-   pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
-  </script>
 </body>
 </html>
